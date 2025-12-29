@@ -8,26 +8,30 @@ import { getStorage } from "firebase/storage";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Using environment variables for security
 const firebaseConfig = {
-  apiKey: "AIzaSyDdPpLeLIlUVZxu7qqa01dFbV6-UUewewY",
-  authDomain: "big-structure-477622-i1.firebaseapp.com",
-  projectId: "big-structure-477622-i1",
-  storageBucket: "big-structure-477622-i1.firebasestorage.app",
-  messagingSenderId: "750515589783",
-  appId: "1:750515589783:web:0b198eab776b1bf8d6cfd2",
-  measurementId: "G-K2ZC75Q751"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
+
+// for checking if app exists then use it else initialize new one
+// const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+
+// const analytics = getAnalytics(app);
 
 // connected auth with firebase project
 const auth = getAuth(app)
 
 // connected firestore with firebase project
-const fireStore = getFirestore(app)
+const db = getFirestore(app)
 
 // connected getStorage with firebase project
 const storage = getStorage(app)
@@ -35,5 +39,5 @@ const storage = getStorage(app)
 
 
 
-export default {app , auth , fireStore , storage }
+export { app, auth, db, storage }
 
